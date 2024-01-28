@@ -30,20 +30,23 @@ format:
     echo: false
     keep-hidden: true
     code-tools: true
-    cap-location: bottom
-    page-layout: article
     fig-responsive: true
 ---
 
-<!-- ========================================================================== -->
+::: {.callout-important appearance="simple"}
+## Under Review {.unnumbered}
+This paper is under review on the experimental track of the [Journal of Visualization and Interaction](https://www.journalovi.org/).
+:::
+
+::: {.callout-note appearance="simple" icon=false collapse=false}
 ## Abstract {.unnumbered}
 
-#### Introduction
+###### Introduction
 Scatterplots are a common tool for exploring multidimensional datasets, especially in the form of scatterplot matrices (SPLOMs).
 However, scatterplots suffer from overplotting when categorical variables are mapped to one or two axes, or the same continuous variable is used for both axes.
 Previous methods such as histograms or violin plots use aggregation, which makes brushing and linking difficult.
 
-#### Conclusion
+###### Conclusion
 
 We propose gatherplots, an extension of scatterplots to manage the overplotting problem.
 Gatherplots are a form of *unit visualization*, which avoid aggregation and maintain the identity of individual objects to ease visual perception.
@@ -52,35 +55,38 @@ The size and aspect ratio of marks can also be changed dynamically to make it ea
 In the case of a categorical variable vs. a categorical variable, we propose a heuristic to decide bin sizes for optimal space usage.
 Results from a crowdsourced user study show that gatherplots enable people to assess data distribution more quickly and more correctly than when using jittered scatterplots.
 
-#### Materials
+###### Materials
 
 Source code for Gatherplots can be found at [https://github.com/intuinno/gatherplot](https://github.com/intuinno/gatherplot).
 Research materials associated with the crowdsourced user study can be found on OSF at [https://osf.io/bk9cx/](https://osf.io/bk9cx/).
 
-#### Data Collection
+###### Data Collection
 
 We conducted a crowdsourced user study on [Amazon Mechanical Turk](https://www.mturk.com/) involving participants drawn from the general population.
 We collected completion time, accuracy, and confidence for five different retrieval, ranking, and comparison tasks under four conditions: scatterplots with jittering, gatherplots with absolute mode, gatherplots with normalized mode, and gatherplots with a toggle to switch between absolute and normalized mode.
 
-#### Data Analysis
+###### Data Analysis
 
 Data collected from the crowdsourced survey were analyzed with respect to the accuracy (correct or incorrect), time spent, and confidence of estimation.
 Based on our hypotheses, we analyzed the different modes of layout for each type of question: retrieve value, absolute value task, and relative value task.
 
-#### Analysis Results
+###### Analysis Results
 
 Gatherplots outperform jittering for accuracy as well as for the subjective confidence measure.
 
-#### Implementation
+###### Implementation
 
 We implemented a web-based demonstration of Gatherplots using [D3](https://d3js.org/) and [Firebase](https://firebase.google.com/), as well as using [Observable JS](https://observablehq.com/) in this article.
 
-#### Demonstration
+###### Demonstration
 
 Beyond the embedded demonstration in this article, you can also find a live demo of Gatherplots at [https://gatherplot.firebaseapp.com/](https://gatherplot.firebaseapp.com/).
 
+:::
+
 <!-- Teaser -->
 ::: {#fig-teaser layout-ncol=3}
+
 ![Cylinders vs. MPG.](figures/teaser-1.svg){#fig-teaser1 fig-alt="Gatherplot showing MPG on the Y axis and Cylinders on the X axis for a car dataset of some 400 datapoints. Color is used to show three different origins: US (blue), Europe (orange), and Asia (green). The data is gathered in regular grids for each of the cylinder values clearly showing the distribution: four-cylinder cars have fairly uniform gas mileage, whereas six and eight-cylinder cars have lower gas mileage."}
 
 ![Cylinders vs. Origin.](figures/teaser-2.svg){#fig-teaser2 fig-alt="Gatherplot showing Origin on the Y axis and Cylinders on the X axis for a car dataset of some 400 datapoints. A blue-white color scale is used to show gas mileage. The data is gathered in regular grids for each of the three origins and four cylinder values (4, 5, 6, 8). The grid cells show the data distrbution: all eight cylinder cars are from the U.S., and high cylinder count seems to lead to lower gas mileage."}
@@ -89,10 +95,10 @@ Beyond the embedded demonstration in this article, you can also find a live demo
 
 **Cars dataset.**
 Gatherplots showing a dataset related to cars, yielding overplotting in normal scatterplots.
-The gatherplot in (a) shows Cylinders (categorical) vs. MPG (continuous), highlighting the overall distribution of MPG values of cars with different cylinders.
+The gatherplot in [-@fig-teaser1] shows Cylinders (categorical) vs. MPG (continuous), highlighting the overall distribution of MPG values of cars with different cylinders.
 The brackets on the X-axis are used to indicate that the interval within the brackets represent the same value in the data.
-The gatherplot in (b) shows `Cylinders` (categorical) vs. `Origin` (categorical), partitioning the graphical axes into intervals and packing points into groups for each interval. 
-In (c), both X-axis and Y-axis show the same continuous variable (MPG).
+The gatherplot in [-@fig-teaser2] shows `Cylinders` (categorical) vs. `Origin` (categorical), partitioning the graphical axes into intervals and packing points into groups for each interval. 
+In [-@fig-teaser3], both X-axis and Y-axis show the same continuous variable (MPG).
 All these cases would have caused overplotting for a scatterplot, resulting in dot-shaped or line-shaped point patterns where individual points cannot be identified.
 :::
 
@@ -483,8 +489,8 @@ This is shown in @fig-optimal-bin.
 ![Small display space.](figures/cont-size-2.svg){#fig-optimal-bin2 fig-alt="Gatherplot for a car dataset with MPG on the Y axis and unassigned X axis. Color is used to show three different origins: US (blue), Europe (orange), and Asia (green). The result is a streamgraph arrangement with each position on the Y axis showing a single gathered row of cars with the corresponding gas mileage. This chart is shorter than the previous one, yielding larger mileage bins."}
 
 **Choosing optimal bin size based on available display space.**
-In (a), there is enough space so that the dot size can be maximized, improving spatial accuracy.
-In comparison, in (b) the assigned space is small, so the dot size is determined so that the most crowded bin interval will fit within the assigned space.
+In [-@fig-optimal-bin1], there is enough space so that the dot size can be maximized, improving spatial accuracy.
+In comparison, in [-@fig-optimal-bin2] the assigned space is small, so the dot size is determined so that the most crowded bin interval will fit within the assigned space.
 This results in two different overviews even though the two plots have identical aspect ratio.
 :::
 
@@ -498,7 +504,6 @@ One limitation of gatherplots is that the technique requires binning to manage a
 However, using both gatherplots and scatterplots in different views makes this problem less severe because the analyst can simply choose the visual representation most suited for a particular task.
 
 ::: {#fig-cont-cont layout-ncol=3}
-
 ![Scatterplot.](figures/cont-cont-1.svg){#fig-cont-cont1 fig-alt="Scatterplot with 5,000 random data points and severe overplotting. The data is uniformly distributed along the Y axis and appears normally distributed on the X axis. The graph shows three separate colors: blue, cyan, and moss green."}
 
 ![Absolute gatherplot.](figures/cont-cont-2.svg){#fig-cont-cont2 fig-alt="Gatherplot with absolute mode for the random 5,000-point dataset. Both the X and Y axes have been automatically binned by the algorithm. The cells resulting from this binning show ordered marks; the horizontal center area shows the most data points."}
@@ -570,17 +575,17 @@ density with adjacent ticks.
 
 ::: {#fig-tick-mark layout-ncol=3}
 
-![](figures/tick-marks-1.svg){#fig-tick-mark1 fig.alt="Simple vertical tick marks."}
+![](figures/tick-marks-1.svg){#fig-tick-mark1 fig-alt="Simple vertical tick marks."}
 
-![](figures/tick-marks-2.svg){#fig-tick-mark2 fig.alt="Double-sided arrows."}
+![](figures/tick-marks-2.svg){#fig-tick-mark2 fig-alt="Double-sided arrows."}
 
-![](figures/tick-marks-3.svg){#fig-tick-mark3 fig.alt="Double-sided arrows with tick marks."}
+![](figures/tick-marks-3.svg){#fig-tick-mark3 fig-alt="Double-sided arrows with tick marks."}
 
-![](figures/tick-marks-4.svg){#fig-tick-mark4 fig.alt="Square brackets."}
+![](figures/tick-marks-4.svg){#fig-tick-mark4 fig-alt="Square brackets."}
 
-![](figures/tick-marks-5.svg){#fig-tick-mark5 fig.alt="Angle brackets."}
+![](figures/tick-marks-5.svg){#fig-tick-mark5 fig-alt="Angle brackets."}
 
-![](figures/tick-marks-6.svg){#fig-tick-mark6 fig.alt="Curly brackets."}
+![](figures/tick-marks-6.svg){#fig-tick-mark6 fig-alt="Curly brackets."}
 
 **Various tick mark types.**
 The blue dotted region represents the area between adjacent tick
@@ -668,13 +673,28 @@ To reduce the chance of one chart being optimal by luck for a specific task, two
 This yielded a total of 10 questions for each participant.
 Each question was followed by the question asking confidence of estimation with a 7-point Likert scale, and the time spent for each question was measured.
 
+::: {#fig-study layout-ncol=2}
+
+![The Gatherplot stimulus and the task; this is a relative comparison task (**T4**).](figures/study1.png){#fig-study1 fig-alt="Screenshot of a survey question with a gatherplot visualizing the Titanic passenger dataset on top and a question at the bottom. The gatherplot shows Class (First, Second, Third, Crew) on the X axis and Sex (Female, Male) on the Y axis. This yields a grid with two rows and four columns. Marks are colored based on whether they survived or not; cyan for yes, and blue for no. Marks are freely sized to fill the available size in each grid cell. The question at the bottom says 'Among the four groups, the number of female survivors are the highest in first class.' The options are Agree, Disagree, or Don't Know/Can't Determine. In particular, in the First Class Female grid cell, there is an absolutely majority of cyan cells with only very few blue cells. The proportion of cyan cells is much lower for the Male First Class passengenrs, indicating that the statement is true.."}
+
+![The confidence question as a 7-point Likert scale.](figures/study2.png){#fig-study2 fig-alt="Screenshot of a multiple-choice question with seven choices as a radio button, representing a Likert-scale question. The question reads 'Please select how much you agree or disagree with the following statement: I am confident of my estimation.' The options are Strongly Disagree, Disagree, Somewhat Disagree, Neither Agree/Disagree, Somewhat Agree, Agree, Strongly Agree."}
+
+**Example study screenshot.**
+The study consisted of a total of 10 questions, each asked on a screen like this.
+A full example survey is shown in the supplemental material on OSF.
+
+:::
+
 ### Dataset
  
 We used a dataset on the survivors of the sinking of the *Titanic* in 1912.
-Each of the 2,201 survivors had four dimensions, which were all categorical variables: `class` (4 levels), `sex` (2 levels), `port of entry` (4 levels), `survival status` (2 levels).
+Each of the 2,201 survivors had four dimensions, which were all categorical variables: `class` (4 levels), `sex` (2 levels), `port of entry` (4 levels), and `survival status` (2 levels).
 The five tasks above were asked for two views with different dimensions.
 One view visualized class on X-axis, sex on Y-axis, and survival using color.
 The second view visualized survived on the X-axis, class on the Y-axis, and port of entry using color.
+
+@fig-study shows an example study stimulus screen for the *Titanic* dataset using a normalized (space-filling) gatherplot for task **T4**.
+The [OSF](https://osf.io/bk9cx/) repository contains a file `qualtrics-study.pdf` showing a full run of an experiment (10 questions).
 
 ### Hypotheses
 
@@ -691,6 +711,7 @@ Therefore, our hypotheses are as follows:
 
 The results were analyzed with respect to the accuracy (correct or incorrect), time spent, and confidence of estimation.
 Based on our hypotheses, we analyzed the different modes of layout for each type of question: retrieve value, absolute value task, and relative value task.
+The [OSF](https://osf.io/bk9cx/) repository contains code and data for replicating our data analysis.
 
 ::: {#fig-results layout-ncol=3}
 
@@ -735,7 +756,6 @@ In total, we recruited 42 participants for jitter, 56 participants for absolute,
 ![](plots/task-performance-4.svg){#fig-correctness4 fig-alt="Correctness results from our crowdsourced user study."}
 
 ![](plots/task-performance-5.svg){#fig-correctness5 fig-alt="Correctness results from our crowdsourced user study."}
-
 
 **Correctness results from our crowdsourced user study.**
 [-@fig-correctness1] Correctness for retrieving value.
@@ -807,7 +827,7 @@ Lens geometry gives us additional options for layout of the stacked groups in th
 
 ::: {#fig-gatherlens}
 
-![](figures/gatherlens.png){fig.alt="Three examples of a GatherLens in a scatterplot of airline performance data containing 3,000 points. The gatherplot uses the actual elapsed time of a flight on the Y axis and the arrival time on the X axis. Marks are colored using a categorical color scale representing days of the week. There are three GatherLenses in the plot. Each lens is a 2D shape containing marks sorted by color and arranged in a grid. The pie lens organizes the marks in circle sectors similar to a pie chart. The histogram lens organizes marks into vertical bars arranged side by side. The standard lens uses the whole available area to lay out marks in an ordered grid."}
+![](figures/gatherlens.png){fig-alt="Three examples of a GatherLens in a scatterplot of airline performance data containing 3,000 points. The scatterplot uses the actual elapsed time of a flight on the Y axis and the arrival time on the X axis. Marks are colored using a categorical color scale representing days of the week. There are three GatherLenses in the plot. Each lens is a 2D shape containing marks sorted by color and arranged in a grid. The pie lens organizes the marks in circle sectors similar to a pie chart. The histogram lens organizes marks into vertical bars arranged side by side. The standard lens uses the whole available area to lay out marks in an ordered grid."}
 
 **Three examples of a GatherLens.**
 The lenses are deployed in a scatterplot of airline performance data containing 3,000 points.
